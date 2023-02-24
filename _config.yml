@@ -1,0 +1,27 @@
+title: Cybersecurity - Cipher Algorithms
+
+date: "23-02-2023"
+lang: "en-EN"
+
+author: iluzioDev
+
+social-network-links:
+  github: iluzioDev
+  twitter: iluzioDev
+  linkedin: luischinearangel
+
+share-links-active:
+  twitter: true
+  linkedin: true
+
+remote_theme: pages-themes/slate@v0.2.0
+plugins:
+- jekyll-remote-theme
+
+exclude:
+  - CHANGELOG.md
+  - CNAME
+  - Gemfile
+  - Gemfile.lock
+  - screenshot.png
+  - docs/
