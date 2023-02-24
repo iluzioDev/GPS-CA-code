@@ -13,7 +13,7 @@ Inside this repo is an implementation of the C/A Algorithm developed in Python, 
 
 [GPS Signals](https://en.wikipedia.org/wiki/GPS_signals)
 
-![C/A code generator](https://www.researchgate.net/publication/340551421/figure/fig2/AS:879832166563841@1586779743041/Structural-scheme-GPS-C-A-ranging-code-generator.png)
+![C/A code generator](https://i.stack.imgur.com/UOQnn.png)
 
 ## Features ✨
 
