@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>GPS L1C/A Codes Generator &mdash; gpsl1ca 1.0.0 documentation</title>
+  <title>GPS L1C/A Codes Generator &mdash; gps_l1ca 1.0.0 documentation</title>
   
 
   
@@ -38,7 +38,7 @@
         <div class="container">
             <a class="site-nav-toggle hidden-lg-up"><i class="icon-menu"></i></a>
             <a class="site-title" href="#">
-                gpsl1ca
+                gps_l1ca
             </a>
         </div>
     </header>
@@ -109,6 +109,14 @@
 <li><a class="reference internal" href="#features">Features ✨</a></li>
 <li><a class="reference internal" href="#install">Install 🔧</a></li>
 <li><a class="reference internal" href="#usage">Usage 💡</a></li>
+<li><a class="reference internal" href="#api">API ⚙️</a><ul>
+<li><a class="reference internal" href="#gps_l1ca.highlight_taps"><code class="docutils literal notranslate"><span class="pre">highlight_taps()</span></code></a></li>
+<li><a class="reference internal" href="#gps_l1ca.format_polynomial"><code class="docutils literal notranslate"><span class="pre">format_polynomial()</span></code></a></li>
+<li><a class="reference internal" href="#gps_l1ca.LFSR"><code class="docutils literal notranslate"><span class="pre">LFSR()</span></code></a></li>
+<li><a class="reference internal" href="#gps_l1ca.GPS_L1CA_generator"><code class="docutils literal notranslate"><span class="pre">GPS_L1CA_generator()</span></code></a></li>
+<li><a class="reference internal" href="#gps_l1ca.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#maintainers">Maintainers 👷</a></li>
 <li><a class="reference internal" href="#license">License ⚖️</a></li>
 </ul>
@@ -144,9 +152,9 @@
 </section>
 <section id="install">
 <h2>Install 🔧<a class="headerlink" href="#install" title="Permalink to this heading">¶</a></h2>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git clone https://github.com/iluzioDev/gpsl1ca</span>
-<span class="go">cd gpsl1ca</span>
-<span class="go">python3 gpsl1ca</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git clone https://github.com/iluzioDev/gps_l1ca</span>
+<span class="go">cd gps_l1ca</span>
+<span class="go">python3 gps_l1ca</span>
 </pre></div>
 </div>
 </section>
@@ -159,6 +167,9 @@
 <span class="go">What would you want to do?</span>
 <span class="go">[1] Generate GPS L1C/A Code.</span>
 <span class="go">[2] Check G2 Taps by prn id.</span>
+<span class="go">[3] Check G1 and G2 polynomials.</span>
+<span class="go">[4] Change G1 polynomial.</span>
+<span class="go">[5] Change G2 polynomial.</span>
 <span class="go">[0] Exit.</span>
 <span class="go">■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■</span>
 <span class="go">Option  -&gt;</span>
@@ -167,22 +178,69 @@
 <ol class="arabic simple">
 <li><p>Asks for a <code class="docutils literal notranslate"><span class="pre">prn</span> <span class="pre">id</span></code> and number of bits to generate. Once inputs are introduced, it will generate a code of <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">bits</span></code> each one result of the algorithm operations. In the end, a table will be prompted with all steps made and the resulting code.</p></li>
 <li><p>Shows the collection of taps by <code class="docutils literal notranslate"><span class="pre">prn</span> <span class="pre">id</span></code>.</p></li>
+<li><p>Displays current G1 ang G2 polynomials, both of them can be changed with option <code class="docutils literal notranslate"><span class="pre">4</span></code> and <code class="docutils literal notranslate"><span class="pre">5</span></code>.</p></li>
 </ol>
-<!--
-## API
+</section>
+<section id="api">
+<h2>API ⚙️<a class="headerlink" href="#api" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="gps_l1ca.highlight_taps">
+<span class="sig-prename descclassname"><span class="pre">gps_l1ca.</span></span><span class="sig-name descname"><span class="pre">highlight_taps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\x1b[33m'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gps_l1ca.highlight_taps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Highlights the taps in a given sequence.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>sequence (list): Sequence to be highlighted.
+taps (list): Taps to be highlighted.
+color (str, optional): Color to be used in the highlight. Defaults to Fore.YELLOW.</p>
+</dd>
+<dt>Returns:</dt><dd><p>list | None: Highlighted sequence in success, None in failure.</p>
+</dd>
+</dl>
+</dd></dl>
 
-```{eval-rst}
-.. autofunction:: gpsl1ca.LFSR
-```
+<dl class="py function">
+<dt class="sig sig-object py" id="gps_l1ca.format_polynomial">
+<span class="sig-prename descclassname"><span class="pre">gps_l1ca.</span></span><span class="sig-name descname"><span class="pre">format_polynomial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">polynomial</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gps_l1ca.format_polynomial" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats a given polynomial to be used in the LFSR operation.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>polynomial (str): Polynomial to be checked.</p>
+</dd>
+<dt>Returns:</dt><dd><p>list | None: List of pows of polynomial in success, None in failure.</p>
+</dd>
+</dl>
+</dd></dl>
 
-```{eval-rst}
-.. autofunction:: gpsl1ca.GPS_L1CA_generator
-```
+<dl class="py function">
+<dt class="sig sig-object py" id="gps_l1ca.LFSR">
+<span class="sig-prename descclassname"><span class="pre">gps_l1ca.</span></span><span class="sig-name descname"><span class="pre">LFSR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">polynomial</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gps_l1ca.LFSR" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes a Linear Feedback Shift Register (LFSR) operation in a given sequence.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>sequence (str): Sequence to be shifted.
+polynomial (list): Primative polynomial to be used in the operation.</p>
+</dd>
+<dt>Returns:</dt><dd><p>str | None: Shifted sequence in success, None in failure.</p>
+</dd>
+</dl>
+</dd></dl>
 
-```{eval-rst}
-.. autofunction:: gpsl1ca.main
-```
--->
+<dl class="py function">
+<dt class="sig sig-object py" id="gps_l1ca.GPS_L1CA_generator">
+<span class="sig-prename descclassname"><span class="pre">gps_l1ca.</span></span><span class="sig-name descname"><span class="pre">GPS_L1CA_generator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prn_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g1_pol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g2_pol</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gps_l1ca.GPS_L1CA_generator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a GPS L1C/A code using a specific prn id and a given number of bits to generate.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>prn_id (int): Pseudo-random noise id of satellite.
+n (int): Number of bits to generate.</p>
+</dd>
+<dt>Returns:</dt><dd><p>str | None: Generated code in success, None in failure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="gps_l1ca.main">
+<span class="sig-prename descclassname"><span class="pre">gps_l1ca.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gps_l1ca.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main function of the program. Users can choose between generating a GPS L1C/A code or checking G2 taps by prn id.</p>
+</dd></dl>
+
 </section>
 <section id="maintainers">
 <h2>Maintainers 👷<a class="headerlink" href="#maintainers" title="Permalink to this heading">¶</a></h2>
@@ -195,12 +253,15 @@
 <section id="license">
 <h2>License ⚖️<a class="headerlink" href="#license" title="Permalink to this heading">¶</a></h2>
 <p>Distributed under the MIT License. <a class="reference internal" href="LICENSE.html"><span class="doc std std-doc">Click here</span></a> for more information.</p>
-<hr class="docutils" />
+<!--
+---
 <div align="center">
 	<b>
 		<a href="https://www.npmjs.com/package/get-good-readme">File generated with get-good-readme module</a>
 	</b>
 </div>
+
+-->
 </section>
 </section>
 

@@ -23,9 +23,9 @@ Inside this repo is an implementation of the C/A Algorithm developed in Python, 
 ## Install 🔧
 
 ```console
-git clone https://github.com/iluzioDev/gpsl1ca
-cd gpsl1ca
-python3 gpsl1ca
+git clone https://github.com/iluzioDev/gps_l1ca
+cd gps_l1ca
+python3 gps_l1ca
 ```
 
 ## Usage 💡
@@ -39,6 +39,9 @@ Once executed, a menu will prompt asking for desired option:
 What would you want to do?
 [1] Generate GPS L1C/A Code.
 [2] Check G2 Taps by prn id.
+[3] Check G1 and G2 polynomials.
+[4] Change G1 polynomial.
+[5] Change G2 polynomial.
 [0] Exit.
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 Option  ->
@@ -48,19 +51,29 @@ Option  ->
 
 2. Shows the collection of taps by ```prn id```. 
 
+3. Displays current G1 ang G2 polynomials, both of them can be changed with option ```4``` and ```5```.
+
 <!--
-## API
+## API ⚙️
 
 ```{eval-rst}
-.. autofunction:: gpsl1ca.LFSR
+.. autofunction:: gps_l1ca.highlight_taps
 ```
 
 ```{eval-rst}
-.. autofunction:: gpsl1ca.GPS_L1CA_generator
+.. autofunction:: gps_l1ca.format_polynomial
 ```
 
 ```{eval-rst}
-.. autofunction:: gpsl1ca.main
+.. autofunction:: gps_l1ca.LFSR
+```
+
+```{eval-rst}
+.. autofunction:: gps_l1ca.GPS_L1CA_generator
+```
+
+```{eval-rst}
+.. autofunction:: gps_l1ca.main
 ```
 -->
 
@@ -76,9 +89,12 @@ Option  ->
 
 Distributed under the MIT License. [Click here](LICENSE.md) for more information.
 
+<!--
 ---
 <div align="center">
 	<b>
 		<a href="https://www.npmjs.com/package/get-good-readme">File generated with get-good-readme module</a>
 	</b>
 </div>
+
+-->
