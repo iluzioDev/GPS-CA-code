@@ -13,9 +13,7 @@ Inside this repo is an implementation of the C/A Algorithm developed in Python, 
 
 [GPS Signals](https://en.wikipedia.org/wiki/GPS_signals)
 
-<p float="left">
-	<img src="https://www.researchgate.net/publication/340551421/figure/fig2/AS:879832166563841@1586779743041/Structural-scheme-GPS-C-A-ranging-code-generator.png" alt="C/A code generator" height="225px">
-</p>
+![C/A code generator](https://www.researchgate.net/publication/340551421/figure/fig2/AS:879832166563841@1586779743041/Structural-scheme-GPS-C-A-ranging-code-generator.png)
 
 ## Features ✨
 
@@ -50,6 +48,7 @@ Option  ->
 
 2. Shows the collection of taps by ```prn id```. 
 
+<!--
 ## API
 
 ```{eval-rst}
@@ -63,6 +62,7 @@ Option  ->
 ```{eval-rst}
 .. autofunction:: gpsl1ca.main
 ```
+-->
 
 ## Maintainers 👷
 
