@@ -172,8 +172,8 @@ def main():
       print('|                                                               |')
       
     if option == '3':
-      print('G1 polynomial: ' + g1_pol)
-      print('G2 polynomial: ' + g2_pol)
+      print('G1 polynomial: ' + g1_pol.replace(' ', '').replace('+', ' + '))
+      print('G2 polynomial: ' + g2_pol.replace(' ', '').replace('+', ' + '))
       
     if option == '4':
       new_g1_pol = input('Introduce a new G1 polynomial -> ')
