@@ -192,9 +192,9 @@ def main():
       print('■                          G2 TAPS                              ■')
       print(ROW)
       print('|                                                               |')
-      for i in range(1, (len(G2_TAPS) / 2) + 1):
+      for i in range(1, int(len(G2_TAPS) / 2) + 1):
         print('|\tPRN ID: ' + str(i) + ' -> ' +
-              G2_TAPS[i - 1] + '\t\tPRN ID: ' + str(i + (len(G2_TAPS) / 2)) + ' -> ' + G2_TAPS[(len(G2_TAPS) / 2) - 1] + '\t|')
+              G2_TAPS[i - 1] + '\t\tPRN ID: ' + str(i + int(len(G2_TAPS) / 2)) + ' -> ' + G2_TAPS[int(len(G2_TAPS) / 2) - 1] + '\t|')
       print('|                                                               |')
       
     if option == '3':
