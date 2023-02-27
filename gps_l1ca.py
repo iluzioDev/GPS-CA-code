@@ -10,10 +10,10 @@ This script implements a generator for GPS-L1C/A Codes.
 import re
 from colorama import Fore
 
-left_regex = '^1(( )*\+( )*x([0-9]+)?)+$'
-right_regex = '^((x([0-9]+)?)( )*\+( )*)*1$'
+LEFT_REGEX = '^1(( )*\+( )*x([0-9]+)?)+$'
+RIGHT_REGEX = '^((x([0-9]+)?)( )*\+( )*)*1$'
 
-G2_taps = ['2&6', '3&7', '4&8', '5&9', '1&9', '2&10', '1&8', '2&9', '3&10', '2&3', '3&4', '5&6', '6&7', '7&8', '8&9',
+G2_TAPS = ['2&6', '3&7', '4&8', '5&9', '1&9', '2&10', '1&8', '2&9', '3&10', '2&3', '3&4', '5&6', '6&7', '7&8', '8&9',
            '9&10', '1&4', '2&5', '3&6', '4&7', '5&8', '6&9', '1&3', '4&6', '5&7', '6&8', '7&9', '8&10', '1&6', '2&7', '3&8', '4&9']
 
 def highlight_taps(sequence, taps, color = Fore.YELLOW):
@@ -53,16 +53,16 @@ def format_polynomial(polynomial):
   if type(polynomial) is not str:
     return None
 
-  if re.search(left_regex, polynomial) != None:
-    polynomial = re.search(left_regex, polynomial)
+  if re.search(LEFT_REGEX, polynomial) != None:
+    polynomial = re.search(LEFT_REGEX, polynomial)
     polynomial =  polynomial.string.replace(' ', '').split('+')
     polynomial[0] = 'Left'
     for i, pow in enumerate(polynomial):
       if i == 0:
         continue
       polynomial[i] = polynomial[i].replace(pow, pow[1:])
-  elif re.search(right_regex, polynomial) != None:
-    polynomial = re.search(right_regex, polynomial)
+  elif re.search(RIGHT_REGEX, polynomial) != None:
+    polynomial = re.search(RIGHT_REGEX, polynomial)
     polynomial =  polynomial.string.replace(' ', '').split('+')
     polynomial.pop()
     polynomial.insert(0, 'Right')
@@ -122,7 +122,7 @@ def GPS_L1CA_generator(prn_id, n, g1_pol, g2_pol):
   print('■ G1\t\tFB1\tG2\t\tFB2\tCA\t\t■')
   print('■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■')
   for i in range(n):
-    taps = G2_taps[prn_id - 1].split('&')
+    taps = G2_TAPS[prn_id - 1].split('&')
     xor1 = int(G2[int(taps[0]) - 1]) ^ int(G2[int(taps[1]) - 1])
     xor2 = str(int(G1[9]) ^ xor1)
     ca_sequence += xor2
@@ -190,7 +190,7 @@ def main():
       print('|                                                               |')
       for i in range(1, 17):
         print('|\tPRN ID: ' + str(i) + ' -> ' +
-              G2_taps[i - 1] + '\t\tPRN ID: ' + str(i + 16) + ' -> ' + G2_taps[i + 15] + '\t|')
+              G2_TAPS[i - 1] + '\t\tPRN ID: ' + str(i + 16) + ' -> ' + G2_TAPS[i + 15] + '\t|')
       print('|                                                               |')
       
     if option == '3':
@@ -199,7 +199,7 @@ def main():
       
     if option == '4':
       new_g1_pol = input('Introduce a new G1 polynomial -> ')
-      new_g1_pol = re.search(left_regex, new_g1_pol) or re.search(right_regex, new_g1_pol)
+      new_g1_pol = re.search(LEFT_REGEX, new_g1_pol) or re.search(RIGHT_REGEX, new_g1_pol)
       if new_g1_pol == None:
         print('■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■')
         print('Invalid polynomial!')
@@ -208,7 +208,7 @@ def main():
     
     if option == '5':
       new_g2_pol = input('Introduce a new G2 polynomial -> ')
-      new_g2_pol = re.search(left_regex, new_g2_pol) or re.search(right_regex, new_g2_pol)
+      new_g2_pol = re.search(LEFT_REGEX, new_g2_pol) or re.search(RIGHT_REGEX, new_g2_pol)
       if new_g2_pol == None:
         print('■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■')
         print('Invalid polynomial!')
