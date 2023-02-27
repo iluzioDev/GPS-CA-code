@@ -110,9 +110,10 @@
 <li><a class="reference internal" href="#install">Install 🔧</a></li>
 <li><a class="reference internal" href="#usage">Usage 💡</a></li>
 <li><a class="reference internal" href="#api">API ⚙️</a><ul>
-<li><a class="reference internal" href="#gps_l1ca.highlight_taps"><code class="docutils literal notranslate"><span class="pre">highlight_taps()</span></code></a></li>
-<li><a class="reference internal" href="#gps_l1ca.format_polynomial"><code class="docutils literal notranslate"><span class="pre">format_polynomial()</span></code></a></li>
-<li><a class="reference internal" href="#gps_l1ca.LFSR"><code class="docutils literal notranslate"><span class="pre">LFSR()</span></code></a></li>
+<li><a class="reference internal" href="#gps_l1ca.highlight_bits"><code class="docutils literal notranslate"><span class="pre">highlight_bits()</span></code></a></li>
+<li><a class="reference internal" href="#gps_l1ca.colorize_sequence"><code class="docutils literal notranslate"><span class="pre">colorize_sequence()</span></code></a></li>
+<li><a class="reference internal" href="#gps_l1ca.initialize_values"><code class="docutils literal notranslate"><span class="pre">initialize_values()</span></code></a></li>
+<li><a class="reference internal" href="#gps_l1ca.set_polynomial"><code class="docutils literal notranslate"><span class="pre">set_polynomial()</span></code></a></li>
 <li><a class="reference internal" href="#gps_l1ca.GPS_L1CA_generator"><code class="docutils literal notranslate"><span class="pre">GPS_L1CA_generator()</span></code></a></li>
 <li><a class="reference internal" href="#gps_l1ca.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 </ul>
@@ -184,40 +185,56 @@
 <section id="api">
 <h2>API ⚙️<a class="headerlink" href="#api" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="gps_l1ca.highlight_taps">
-<span class="sig-prename descclassname"><span class="pre">gps_l1ca.</span></span><span class="sig-name descname"><span class="pre">highlight_taps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'\x1b[33m'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gps_l1ca.highlight_taps" title="Permalink to this definition">¶</a></dt>
-<dd><p>Highlights the taps in a given sequence.</p>
+<dt class="sig sig-object py" id="gps_l1ca.highlight_bits">
+<span class="sig-prename descclassname"><span class="pre">gps_l1ca.</span></span><span class="sig-name descname"><span class="pre">highlight_bits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">polynomial</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gps_l1ca.highlight_bits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Highlights the bits of a given sequence according to a given polynomial.</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>sequence (list): Sequence to be highlighted.
-taps (list): Taps to be highlighted.
-color (str, optional): Color to be used in the highlight. Defaults to Fore.YELLOW.</p>
+<dt>Args:</dt><dd><p>sequence (str | list): Sequence to be highlighted.
+polynomial (list): Polynomial to be used in order to highlight the sequence. If taps is True, this parameter must be taps exponents.
+color (str): Color to be used in order to highlight the sequence. 
+taps (bool, optional): Indicates if polynomial is taps or not. Defaults to False.</p>
 </dd>
-<dt>Returns:</dt><dd><p>list | None: Highlighted sequence in success, None in failure.</p>
+<dt>Returns:</dt><dd><p>None | str: None if the parameters are invalid, otherwise the highlighted sequence.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="gps_l1ca.format_polynomial">
-<span class="sig-prename descclassname"><span class="pre">gps_l1ca.</span></span><span class="sig-name descname"><span class="pre">format_polynomial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">polynomial</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gps_l1ca.format_polynomial" title="Permalink to this definition">¶</a></dt>
-<dd><p>Formats a given polynomial to be used in the LFSR operation.</p>
+<dt class="sig sig-object py" id="gps_l1ca.colorize_sequence">
+<span class="sig-prename descclassname"><span class="pre">gps_l1ca.</span></span><span class="sig-name descname"><span class="pre">colorize_sequence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">polynomial</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gps_l1ca.colorize_sequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Colors a given sequence according to a given polynomial.</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>polynomial (str): Polynomial to be checked.</p>
+<dt>Args:</dt><dd><p>sequence (str): Sequence to be colorized.
+polynomial (list): Polynomial to be used in order to colorize the sequence.
+color (str): Color to be used.
+taps (list, optional): Taps digits to highlight. Defaults to None.</p>
 </dd>
-<dt>Returns:</dt><dd><p>list | None: List of pows of polynomial in success, None in failure.</p>
+<dt>Returns:</dt><dd><p>None | str: None if the parameters are invalid, otherwise the colorized sequence.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="gps_l1ca.LFSR">
-<span class="sig-prename descclassname"><span class="pre">gps_l1ca.</span></span><span class="sig-name descname"><span class="pre">LFSR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">polynomial</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gps_l1ca.LFSR" title="Permalink to this definition">¶</a></dt>
-<dd><p>Makes a Linear Feedback Shift Register (LFSR) operation in a given sequence.</p>
+<dt class="sig sig-object py" id="gps_l1ca.initialize_values">
+<span class="sig-prename descclassname"><span class="pre">gps_l1ca.</span></span><span class="sig-name descname"><span class="pre">initialize_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">g1_pol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g2_pol</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gps_l1ca.initialize_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes the values of the generator.</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>sequence (str): Sequence to be shifted.
-polynomial (list): Primative polynomial to be used in the operation.</p>
+<dt>Args:</dt><dd><p>g1_pol (str): G1 polynomial.
+g2_pol (str): G2 polynomial.</p>
 </dd>
-<dt>Returns:</dt><dd><p>str | None: Shifted sequence in success, None in failure.</p>
+<dt>Returns:</dt><dd><p>str, str, str, list, list: CA sequence, G1 sequence, G2 sequence, G1 polynomial, G2 polynomial.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="gps_l1ca.set_polynomial">
+<span class="sig-prename descclassname"><span class="pre">gps_l1ca.</span></span><span class="sig-name descname"><span class="pre">set_polynomial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">polynomial</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gps_l1ca.set_polynomial" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets a new polynomial.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>polynomial (str): Polynomial to be set.</p>
+</dd>
+<dt>Returns:</dt><dd><p>str: New polynomial.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -225,12 +242,14 @@ polynomial (list): Primative polynomial to be used in the operation.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="gps_l1ca.GPS_L1CA_generator">
 <span class="sig-prename descclassname"><span class="pre">gps_l1ca.</span></span><span class="sig-name descname"><span class="pre">GPS_L1CA_generator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prn_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g1_pol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g2_pol</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gps_l1ca.GPS_L1CA_generator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generates a GPS L1C/A code using a specific prn id and a given number of bits to generate.</p>
+<dd><p>Generates a GPS-L1C/A code given a PRN ID, a number of bits to generate and the G1 and G2 polynomials.</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>prn_id (int): Pseudo-random noise id of satellite.
-n (int): Number of bits to generate.</p>
+<dt>Args:</dt><dd><p>prn_id (int | str): PRN ID to use.
+n (int | str): Number of bits to generate.
+g1_pol (str): G1 polynomial.
+g2_pol (str): G2 polynomial.</p>
 </dd>
-<dt>Returns:</dt><dd><p>str | None: Generated code in success, None in failure.</p>
+<dt>Returns:</dt><dd><p>None | str: None if the parameters are invalid, otherwise the generated code.</p>
 </dd>
 </dl>
 </dd></dl>

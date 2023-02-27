@@ -57,15 +57,19 @@ Option  ->
 ## API ⚙️
 
 ```{eval-rst}
-.. autofunction:: gps_l1ca.highlight_taps
+.. autofunction:: gps_l1ca.highlight_bits
 ```
 
 ```{eval-rst}
-.. autofunction:: gps_l1ca.format_polynomial
+.. autofunction:: gps_l1ca.colorize_sequence
 ```
 
 ```{eval-rst}
-.. autofunction:: gps_l1ca.LFSR
+.. autofunction:: gps_l1ca.initialize_values
+```
+
+```{eval-rst}
+.. autofunction:: gps_l1ca.set_polynomial
 ```
 
 ```{eval-rst}
